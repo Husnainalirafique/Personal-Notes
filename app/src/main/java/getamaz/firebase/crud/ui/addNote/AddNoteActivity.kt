@@ -21,11 +21,18 @@ class AddNoteActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+        setOnClickListeners()
         addNote()
         updateNote()
-        handleBackPressed()
         setStatusBarAppearance(window.decorView.rootView)
 
+    }
+
+
+    private fun setOnClickListeners(){
+        binding.backButton.setOnClickListener {
+            finish()
+        }
     }
 
     private fun addNote() {
@@ -57,18 +64,6 @@ class AddNoteActivity : AppCompatActivity() {
                     toast("Fill Both fields!")
                 }
             }
-        }
-    }
-
-    private fun handleBackPressed() {
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                finish()
-            }
-
-        })
-        binding.backButton.setOnClickListener {
-            finish()
         }
     }
 
