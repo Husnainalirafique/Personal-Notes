@@ -5,17 +5,16 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import getamaz.firebase.crud.R
 import getamaz.firebase.crud.databinding.ActivityMainBinding
 import getamaz.firebase.crud.ui.adapter.NotesAdapter
+import getamaz.firebase.crud.utils.isEditTextEmpty
+import getamaz.firebase.crud.utils.textFromEditText
+import getamaz.firebase.crud.utils.toast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var database: DatabaseReference
     private lateinit var notesAdapter: NotesAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +25,42 @@ class MainActivity : AppCompatActivity() {
     private fun functions() {
         initializingLateinitProperties()
         settingUpRecyclerView()
+        addNote()
+        readNotes()
+        deleteAllNotes()
     }
     private fun initializingLateinitProperties() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        database = Firebase.database.reference
         notesAdapter = NotesAdapter()
+    }
+
+    private fun addNote(){
+        binding.btnCreateNote.setOnClickListener {
+            if (!isEditTextEmpty(binding.etNoteTitle) && !isEditTextEmpty(binding.etNoteDes)){
+                viewModel.addNote(textFromEditText(binding.etNoteTitle),textFromEditText(binding.etNoteDes))
+                binding.apply {
+                    etNoteTitle.text.clear()
+                    etNoteDes.text.clear()
+                }
+            }
+            else{
+                toast("Fill Both fields!")
+            }
+        }
+    }
+
+    private fun readNotes(){
+        viewModel.getNotes().observe(this) { notes ->
+            notes?.let {
+                notesAdapter.submitList(notes)
+            }
+        }
+    }
+
+    private fun deleteAllNotes(){
+       binding.btnDeleteAllNotes.setOnClickListener {
+           viewModel.deleteAllNotes()
+       }
     }
 
     private fun settingUpRecyclerView() {

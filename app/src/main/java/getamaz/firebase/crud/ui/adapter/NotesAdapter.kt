@@ -12,7 +12,6 @@ import getamaz.firebase.crud.R
 import getamaz.firebase.crud.data.Note
 
 class NotesAdapter : ListAdapter<Note, NotesAdapter.MyViewHolder>(MyDiffCallback()) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
         return MyViewHolder(view)

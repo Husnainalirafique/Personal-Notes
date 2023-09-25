@@ -10,12 +10,12 @@
         tools:context=".note.MainActivity">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/etNoteTitle"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/et_bg"
-            android:hint="Enter Title"
+            android:hint="@string/enter_title"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
             android:paddingEnd="10dp"
@@ -25,42 +25,42 @@
             tools:ignore="Autofill" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/etNoteDes"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/et_bg"
-            android:hint="Enter Description"
+            android:hint="@string/enter_description"
             android:inputType="text"
             android:paddingStart="20dp"
             android:paddingEnd="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/editText"
-            app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toBottomOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="@+id/etNoteTitle"
+            app:layout_constraintStart_toStartOf="@+id/etNoteTitle"
+            app:layout_constraintTop_toBottomOf="@+id/etNoteTitle"
             tools:ignore="Autofill" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnCreateNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Upload"
-            app:layout_constraintEnd_toEndOf="@+id/editText2"
+            android:text="@string/create"
+            app:layout_constraintEnd_toEndOf="@+id/etNoteDes"
             app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="@+id/editText2"
-            app:layout_constraintTop_toBottomOf="@+id/editText2"
+            app:layout_constraintStart_toStartOf="@+id/etNoteDes"
+            app:layout_constraintTop_toBottomOf="@+id/etNoteDes"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
-            android:id="@+id/buttonDelete"
+            android:id="@+id/btnDeleteAllNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Delete"
-            app:layout_constraintEnd_toEndOf="@+id/editText2"
+            android:text="@string/delete_all"
+            app:layout_constraintEnd_toEndOf="@+id/etNoteDes"
             app:layout_constraintHorizontal_bias="0.80"
-            app:layout_constraintStart_toStartOf="@+id/editText2"
-            app:layout_constraintTop_toBottomOf="@+id/editText2" />
+            app:layout_constraintStart_toStartOf="@+id/etNoteDes"
+            app:layout_constraintTop_toBottomOf="@+id/etNoteDes" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -70,7 +70,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateNote"
             tools:listitem="@layout/note_item"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
