@@ -1,4 +1,4 @@
-package getamaz.firebase.crud.ui.main
+package getamaz.firebase.crud.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +22,15 @@ class MainViewModel : ViewModel() {
         return mutableLiveData
     }
 
+    fun updateNote(title: String, description: String,id:String){
+        val noteUpdates = mapOf(
+            "noteTitle" to title,
+            "noteDescription" to description
+        )
+
+        database.child("Notes").child(id).updateChildren(noteUpdates)
+    }
+
     fun addNote(title: String, description: String) {
         val note = Note(title, description)
         database.child("Notes").push().setValue(note)
@@ -31,13 +40,18 @@ class MainViewModel : ViewModel() {
         database.child("Notes").removeValue()
     }
 
+    fun deleteById(id:String){
+        database.child("Notes").child(id).removeValue()
+    }
+
     private fun fetchNotes() {
         database.child("Notes").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(notes: DataSnapshot) {
                 val noteList = mutableListOf<Note>()
                 for (note in notes.children) {
+                    val id = note.key
                     val data = note.getValue(Note::class.java)
-                    data?.let { noteList.add(it) }
+                    noteList.add(Note(data?.noteTitle, data?.noteDescription, id))
                 }
                 mutableLiveData.value = noteList
             }

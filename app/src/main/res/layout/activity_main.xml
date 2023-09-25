@@ -7,72 +7,51 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
+        android:paddingTop="32dp"
         tools:context=".note.MainActivity">
 
-        <EditText
-            android:id="@+id/etNoteTitle"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/et_bg"
-            android:hint="@string/enter_title"
-            android:inputType="textPersonName"
-            android:paddingStart="20dp"
-            android:paddingEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill" />
-
-        <EditText
-            android:id="@+id/etNoteDes"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/et_bg"
-            android:hint="@string/enter_description"
-            android:inputType="text"
-            android:paddingStart="20dp"
-            android:paddingEnd="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/etNoteTitle"
-            app:layout_constraintStart_toStartOf="@+id/etNoteTitle"
-            app:layout_constraintTop_toBottomOf="@+id/etNoteTitle"
-            tools:ignore="Autofill" />
-
-        <Button
-            android:id="@+id/btnCreateNote"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/create"
-            app:layout_constraintEnd_toEndOf="@+id/etNoteDes"
-            app:layout_constraintHorizontal_bias="0.15"
-            app:layout_constraintStart_toStartOf="@+id/etNoteDes"
-            app:layout_constraintTop_toBottomOf="@+id/etNoteDes"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginStart="12dp"
+            android:text="Notes"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnDeleteAllNotes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnDeleteAllNotes" />
 
         <Button
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:id="@+id/btnDeleteAllNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
             android:text="@string/delete_all"
-            app:layout_constraintEnd_toEndOf="@+id/etNoteDes"
-            app:layout_constraintHorizontal_bias="0.80"
-            app:layout_constraintStart_toStartOf="@+id/etNoteDes"
-            app:layout_constraintTop_toBottomOf="@+id/etNoteDes" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCreateNote"
-            tools:listitem="@layout/note_item"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/btnDeleteAllNotes"
+            tools:listitem="@layout/note_item" />
+
+        <Button
+            android:id="@+id/btnAddNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="Add Note"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
