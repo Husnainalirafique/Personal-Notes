@@ -23,12 +23,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun updateNote(title: String, description: String,id:String){
-        val noteUpdates = mapOf(
-            "noteTitle" to title,
-            "noteDescription" to description
-        )
-
-        database.child("Notes").child(id).updateChildren(noteUpdates)
+        val note = Note(title,description)
+        database.child("Notes").child(id).setValue(note)
     }
 
     fun addNote(title: String, description: String) {
