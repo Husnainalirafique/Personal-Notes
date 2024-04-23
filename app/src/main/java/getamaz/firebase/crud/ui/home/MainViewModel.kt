@@ -9,25 +9,22 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import getamaz.firebase.crud.data.Note
+import getamaz.firebase.crud.utils.DataState
 
 class MainViewModel : ViewModel() {
     private val database = Firebase.database.reference
-    private val mutableLiveData = MutableLiveData<List<Note>>()
-
+    private val mutableLiveData = MutableLiveData<DataState<List<Note>>>()
+    val getNotes: LiveData<DataState<List<Note>>> = mutableLiveData
     init {
         fetchNotes()
     }
 
-    fun getNotes(): LiveData<List<Note>> {
-        return mutableLiveData
-    }
-
-    fun updateNote(title: String, description: String,id:String){
+    fun updateNote(title: String = "", description: String,id:String){
         val note = Note(title,description)
         database.child("Notes").child(id).setValue(note)
     }
 
-    fun addNote(title: String, description: String) {
+    fun addNote(title: String = "", description: String) {
         val note = Note(title, description)
         database.child("Notes").push().setValue(note)
     }
@@ -41,18 +38,20 @@ class MainViewModel : ViewModel() {
     }
 
     private fun fetchNotes() {
+        mutableLiveData.value = DataState.Loading
         database.child("Notes").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(notes: DataSnapshot) {
                 val noteList = mutableListOf<Note>()
-                for (note in notes.children) {
+                notes.children.sortedByDescending { it.key }.forEach { note ->
                     val id = note.key
                     val data = note.getValue(Note::class.java)
                     noteList.add(Note(data?.noteTitle, data?.noteDescription, id))
                 }
-                mutableLiveData.value = noteList
+                mutableLiveData.value = DataState.Success(noteList)
             }
 
             override fun onCancelled(error: DatabaseError) {
+                mutableLiveData.value = DataState.Error(error.message)
             }
         })
     }

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardCornerRadius="20dp">
+    app:cardBackgroundColor="@color/color_car_note"
+    app:cardElevation="7dp"
+    app:cardCornerRadius="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,6 +21,7 @@
             android:text="Title"
             android:textColor="#DC000000"
             android:textSize="18sp"
+            android:visibility="gone"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,18 +31,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Description"
-            android:textColor="#BE000000"
+            android:text="Note"
+            android:textColor="@color/color_tv"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRecyclerViewTitle" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnNoteDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/delete_icon"
+            app:srcCompat="@drawable/delete_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvRecyclerViewDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>

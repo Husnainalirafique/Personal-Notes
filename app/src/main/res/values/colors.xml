@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="color_primary">#FAA401</color>
+    <color name="color_background">#FAFAFD</color>
+    <color name="color_tv">@color/black</color>
+
+    <color name="color_car_note">@color/white</color>
 </resources>

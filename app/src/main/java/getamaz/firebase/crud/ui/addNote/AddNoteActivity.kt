@@ -20,12 +20,10 @@ class AddNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
+        binding.noteDescriptionEditText.requestFocus()
         setOnClickListeners()
         addNote()
         updateNote()
-        setStatusBarAppearance(window.decorView.rootView)
-
     }
 
 
@@ -37,7 +35,7 @@ class AddNoteActivity : AppCompatActivity() {
 
     private fun addNote() {
         binding.noteSaveButton.setOnClickListener {
-            if (!isEditTextEmpty(binding.noteTitleEditText) && !isEditTextEmpty(binding.noteDescriptionEditText)) {
+            if (!isEditTextEmpty(binding.noteDescriptionEditText)) {
                 viewModel.addNote(textFromEditText(binding.noteTitleEditText), textFromEditText(binding.noteDescriptionEditText))
                 binding.apply {
                     noteTitleEditText.text.clear()
@@ -45,7 +43,7 @@ class AddNoteActivity : AppCompatActivity() {
                 }
                 finish()
             } else {
-                toast("Fill Both fields!")
+                toast("Add Note First")
             }
         }
     }

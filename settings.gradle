@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Firebase CRUD"
+rootProject.name = "Personal Notes"
 include ':app'

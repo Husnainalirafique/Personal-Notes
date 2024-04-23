@@ -11,8 +11,12 @@ import getamaz.firebase.crud.R
 import getamaz.firebase.crud.databinding.ActivityMainBinding
 import getamaz.firebase.crud.ui.adapter.NotesAdapter
 import getamaz.firebase.crud.ui.addNote.AddNoteActivity
+import getamaz.firebase.crud.utils.DataState
+import getamaz.firebase.crud.utils.ProgressDialogUtil.dismissProgressDialog
+import getamaz.firebase.crud.utils.ProgressDialogUtil.showProgressDialog
 import getamaz.firebase.crud.utils.setStatusBarAppearance
 import getamaz.firebase.crud.utils.startActivity
+import getamaz.firebase.crud.utils.toast
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         readNotes()
         deleteAllNotes()
         //others
-        setStatusBarAppearance(window.decorView.rootView)
         handleBackPressed()
     }
 
@@ -51,9 +54,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readNotes() {
-        viewModel.getNotes().observe(this) { notes ->
-            notes?.let {
-                notesAdapter.submitList(notes)
+        viewModel.getNotes.observe(this) {
+            when (it) {
+                is DataState.Success -> {
+                    val notesList = it.data
+                    if (notesList != null) {
+                        notesAdapter.submitList(notesList)
+                    }
+                    dismissProgressDialog()
+                }
+
+                is DataState.Error -> {
+                    toast(it.errorMessage)
+                    dismissProgressDialog()
+                }
+
+                is DataState.Loading -> {
+                    showProgressDialog()
+                }
             }
         }
     }
@@ -84,7 +102,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun settingUpRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = notesAdapter
         }
     }

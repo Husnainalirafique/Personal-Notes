@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Firebase CRUD</string>
+    <string name="app_name">Personal Notes</string>
     <string name="create">Create</string>
     <string name="delete_all">Delete All</string>
     <string name="enter_title">Enter Title</string>
